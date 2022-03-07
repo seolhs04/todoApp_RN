@@ -1,12 +1,7 @@
 import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
-import { useState } from "react";
+import { View, Text, TouchableOpacity, ScrollView, Alert } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useState, useEffect } from "react";
 import styled from "@emotion/native";
 
 export default function App() {
@@ -14,7 +9,22 @@ export default function App() {
   const [text, setText] = useState("");
   const [todoList, setTodoList] = useState([]);
   const onChange = (payload) => setText(payload);
-  const onSubmit = () => {
+  const saveTodo = async (toSave) => {
+    try {
+      await AsyncStorage.setItem("@todos", JSON.stringify(toSave));
+    } catch {
+      alert("ERROR", "error!");
+    }
+  };
+  const loadTodo = async () => {
+    try {
+      const s = await AsyncStorage.getItem("@todos");
+      setTodoList(JSON.parse(s));
+    } catch {
+      alert("ERROR", "error!");
+    }
+  };
+  const onSubmit = async () => {
     if (text === "") {
       return;
     } else {
@@ -24,11 +34,30 @@ export default function App() {
         text: text,
         finished: false,
       });
+      await saveTodo(copy);
       setTodoList(copy);
     }
     setText("");
   };
-
+  const deleteTodo = (key) => {
+    Alert.alert("DELETE", "are you sure?", [
+      { text: "Cancle" },
+      {
+        text: "Yes",
+        onPress: async () => {
+          const current = todoList.find((ele) => ele.id === key);
+          const currentIdx = todoList.indexOf(current);
+          const copy = [...todoList];
+          copy.splice(currentIdx, 1);
+          setTodoList(copy);
+          await saveTodo(copy);
+        },
+      },
+    ]);
+  };
+  useEffect(() => {
+    loadTodo();
+  }, []);
   return (
     <Background>
       <StatusBar style="light" />
@@ -52,6 +81,9 @@ export default function App() {
         {todoList.map((todo) => (
           <TodoCard key={todo.id}>
             <TodoText>{todo.text}</TodoText>
+            <TouchableOpacity onPress={() => deleteTodo(todo.id)}>
+              <Text>❌</Text>
+            </TouchableOpacity>
           </TodoCard>
         ))}
       </ScrollView>
@@ -84,9 +116,12 @@ const Input = styled.TextInput`
 `;
 const TodoCard = styled.View`
   background-color: gray;
-  margin: 10px;
+  margin: 10px 0;
   padding: 20px;
   border-radius: 10px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 `;
 const TodoText = styled.Text`
   color: white;
