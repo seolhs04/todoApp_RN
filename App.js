@@ -2,7 +2,8 @@ import { StatusBar } from "expo-status-bar";
 import { View, Text, TouchableOpacity, ScrollView, Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState, useEffect } from "react";
-import styled from "@emotion/native";
+import styled from "styled-components/native";
+import Checkbox from "expo-checkbox";
 
 export default function App() {
   const [mode, setMode] = useState("work");
@@ -19,7 +20,11 @@ export default function App() {
   const loadTodo = async () => {
     try {
       const s = await AsyncStorage.getItem("@todos");
-      setTodoList(JSON.parse(s));
+      if (s) {
+        setTodoList(JSON.parse(s));
+      } else {
+        setTodoList([]);
+      }
     } catch {
       alert("ERROR", "error!");
     }
@@ -38,6 +43,15 @@ export default function App() {
       setTodoList(copy);
     }
     setText("");
+  };
+  const checkFinish = async (currentId) => {
+    const current = todoList.find((ele) => ele.id === currentId);
+    const currentIdx = todoList.indexOf(current);
+    current.finished = !current.finished;
+    const copy = [...todoList];
+    copy[currentIdx] = current;
+    setTodoList(copy);
+    await saveTodo(copy);
   };
   const deleteTodo = (key) => {
     Alert.alert("DELETE", "are you sure?", [
@@ -78,14 +92,19 @@ export default function App() {
         />
       </View>
       <ScrollView>
-        {todoList.map((todo) => (
-          <TodoCard key={todo.id}>
-            <TodoText>{todo.text}</TodoText>
-            <TouchableOpacity onPress={() => deleteTodo(todo.id)}>
-              <Text>❌</Text>
-            </TouchableOpacity>
-          </TodoCard>
-        ))}
+        {todoList &&
+          todoList.map((todo) => (
+            <TodoCard key={todo.id}>
+              <Checkbox
+                value={todo.finished}
+                onValueChange={() => checkFinish(todo.id)}
+              />
+              <TodoText checked={todo.finished}>{todo.text}</TodoText>
+              <TouchableOpacity onPress={() => deleteTodo(todo.id)}>
+                <Text>❌</Text>
+              </TouchableOpacity>
+            </TodoCard>
+          ))}
       </ScrollView>
     </Background>
   );
@@ -115,7 +134,7 @@ const Input = styled.TextInput`
   font-size: 18px;
 `;
 const TodoCard = styled.View`
-  background-color: gray;
+  background-color: #c4c4c4;
   margin: 10px 0;
   padding: 20px;
   border-radius: 10px;
@@ -124,7 +143,8 @@ const TodoCard = styled.View`
   justify-content: space-between;
 `;
 const TodoText = styled.Text`
-  color: white;
-  font-size: 16px;
+  color: ${({ checked }) => (checked ? "gray" : "black")};
+  font-size: 18px;
   font-weight: bold;
+  ${({ checked }) => checked && "text-decoration: line-through"};
 `;
