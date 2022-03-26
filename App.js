@@ -8,20 +8,30 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <StatusBar style="dark" />
-      <Stack.Navigator>
-        <Stack.Screen name="home" component={Home} />
-        <Stack.Screen name="detail" component={Deatil} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <>
+      <NavigationContainer>
+        <StatusBar style="dark" />
+        <Stack.Navigator>
+          <Stack.Screen
+            name="home"
+            component={Home}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="detail"
+            component={Deatil}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+        <BottomBar />
+      </NavigationContainer>
+    </>
   );
 }
 
 const Home = ({ navigation }) => {
   return (
     <Background>
-      <Text>{Math.round(Math.random() * 10)}</Text>
       <Button
         title="디테일 페이지로 이동"
         onPress={() => navigation.navigate("detail")}
@@ -38,6 +48,24 @@ const Deatil = ({ navigation }) => {
         onPress={() => navigation.navigate("home")}
       />
     </Background>
+  );
+};
+const BottomBar = (props) => {
+  const Bar = styled.View`
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    background-color: tomato;
+  `;
+  console.log(props);
+
+  return (
+    <Bar>
+      <Button title="홈페이지" />
+      <Button title="디테일" />
+    </Bar>
   );
 };
 
