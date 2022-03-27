@@ -1,30 +1,38 @@
 import { StatusBar } from "expo-status-bar";
 import { Button, Text } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
+import {
+  NavigationContainer,
+  Link,
+  useNavigationContainerRef,
+} from "@react-navigation/native";
+
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
 import styled from "styled-components/native";
+import BottomTab from "./BottomTab";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const navigationRef = useNavigationContainerRef();
   return (
     <>
-      <NavigationContainer>
+      <NavigationContainer ref={navigationRef}>
         <StatusBar style="dark" />
         <Stack.Navigator>
-          <Stack.Screen
-            name="home"
-            component={Home}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="detail"
-            component={Deatil}
-            options={{ headerShown: false }}
-          />
+          <Stack.Group
+            screenOptions={{ headerStyle: { backgroundColor: "papayawhip" } }}
+          >
+            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="Detail" component={Deatil} />
+          </Stack.Group>
+          <Stack.Group screenOptions={{ presentation: "modal" }}>
+            <Stack.Screen name="Test1" component={Test1} />
+            <Stack.Screen name="Test2" component={Test2} />
+          </Stack.Group>
         </Stack.Navigator>
-        <BottomBar />
       </NavigationContainer>
+      <BottomTab navigation={navigationRef} />
     </>
   );
 }
@@ -34,38 +42,48 @@ const Home = ({ navigation }) => {
     <Background>
       <Button
         title="디테일 페이지로 이동"
-        onPress={() => navigation.navigate("detail")}
+        onPress={() => navigation.navigate("Detail")}
       />
+      <Button
+        title="Test1로 이동"
+        onPress={() => navigation.navigate("Test1")}
+      />
+      <Button title="Test2 이동" onPress={() => navigation.navigate("Test2")} />
     </Background>
   );
 };
 
-const Deatil = ({ navigation }) => {
+const Deatil = ({ navigation, route }) => {
+  console.log(route);
   return (
     <Background>
       <Button
         title="홈페이지로 이동"
-        onPress={() => navigation.navigate("home")}
+        onPress={() => navigation.navigate("Home")}
       />
     </Background>
   );
 };
-const BottomBar = (props) => {
-  const Bar = styled.View`
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
-    height: 50px;
-    background-color: tomato;
-  `;
-  console.log(props);
 
+const Test1 = ({ navigation, route }) => {
   return (
-    <Bar>
-      <Button title="홈페이지" />
-      <Button title="디테일" />
-    </Bar>
+    <Background>
+      <Button
+        title="홈페이지로 이동"
+        onPress={() => navigation.navigate("Home")}
+      />
+    </Background>
+  );
+};
+
+const Test2 = ({ navigation, route }) => {
+  return (
+    <Background>
+      <Button
+        title="홈페이지로 이동"
+        onPress={() => navigation.navigate("Home")}
+      />
+    </Background>
   );
 };
 
