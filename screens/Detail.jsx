@@ -1,7 +1,7 @@
-import { Button } from "react-native";
+import { Text, Button } from "react-native";
 import styled from "styled-components";
 
-const Detail = ({ navigation }) => {
+const Detail = ({ navigation, route }) => {
   const Background = styled.View`
     flex: 1;
     padding: 50px;
@@ -10,6 +10,7 @@ const Detail = ({ navigation }) => {
   `;
   return (
     <Background>
+      <Text>{route.params}</Text>
       <Button
         title="홈페이지로 이동"
         onPress={() => navigation.navigate("Home")}

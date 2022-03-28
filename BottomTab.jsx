@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { Button, Text } from "react-native";
+import { useEffect } from "react";
 
-const BottomTab = ({ navigation }) => {
+const BottomTab = ({ state, descriptors, navigation }) => {
   const BottomTab = styled.View`
     flex-direction: row;
     justify-content: space-around;
@@ -10,10 +11,13 @@ const BottomTab = ({ navigation }) => {
     height: 60px;
     background-color: tomato;
   `;
+  useEffect(() => {
+    console.log(state.routeNames[state.index]);
+  });
   return (
     <BottomTab>
       <Button title="홈" onPress={() => navigation.navigate("Home")} />
-      <Button title="디테일" onPress={() => navigation.navigate("Detail")} />
+      <Button title="테스트" onPress={() => navigation.navigate("Test")} />
     </BottomTab>
   );
 };

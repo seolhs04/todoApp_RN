@@ -1,7 +1,7 @@
 import { Button } from "react-native";
 import styled from "styled-components";
 
-const ModalPage = ({ navigation }) => {
+const Test = ({ navigation }) => {
   const Background = styled.View`
     flex: 1;
     padding: 50px;
@@ -18,4 +18,4 @@ const ModalPage = ({ navigation }) => {
   );
 };
 
-export default ModalPage;
+export default Test;
