@@ -21,7 +21,11 @@ export default function App() {
         <Stack.Navigator tabBar={(props) => <BottomTab {...props} />}>
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Detail" component={Detail} />
-          <Stack.Screen name="Test" component={Test} />
+          <Stack.Screen
+            name="Test"
+            component={Test}
+            options={{ headerShown: false }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </>

@@ -11,9 +11,7 @@ const BottomTab = ({ state, descriptors, navigation }) => {
     height: 60px;
     background-color: tomato;
   `;
-  useEffect(() => {
-    console.log(state.routeNames[state.index]);
-  });
+
   return (
     <BottomTab>
       <Button title="홈" onPress={() => navigation.navigate("Home")} />
