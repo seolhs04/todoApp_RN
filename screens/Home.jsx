@@ -1,5 +1,7 @@
-import { Button } from "react-native";
+import { Button, Text } from "react-native";
 import styled from "styled-components";
+import { useQuery } from "react-query";
+import axios from "axios";
 
 const Home = ({ navigation }) => {
   const Background = styled.View`
@@ -8,24 +10,31 @@ const Home = ({ navigation }) => {
     background-color: white;
     justify-content: center;
   `;
+  const { isLoading, isError, data, error } = useQuery("adsfsa", () => {
+    return axios
+      .get("https://api.github.com/repos/tannerlinsley/react-query")
+      .then((res) => res);
+  });
+
+  if (isLoading) {
+    return (
+      <Background>
+        <Text>loading...</Text>
+      </Background>
+    );
+  }
+
+  if (isError) {
+    return (
+      <Background>
+        <Text>{error}</Text>
+      </Background>
+    );
+  }
+
   return (
     <Background>
-      <Button
-        title="디테일 페이지1로 이동"
-        onPress={() => navigation.navigate("Detail", 1)}
-      />
-      <Button
-        title="디테일 페이지2로 이동"
-        onPress={() => navigation.navigate("Detail", 2)}
-      />
-      <Button
-        title="디테일 페이지3로 이동"
-        onPress={() => navigation.navigate("Detail", 3)}
-      />
-      <Button
-        title="디테일 페이지4로 이동"
-        onPress={() => navigation.navigate("Detail", 4)}
-      />
+      <Text>{data.archive_url}</Text>
     </Background>
   );
 };
