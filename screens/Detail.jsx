@@ -8,6 +8,7 @@ const Detail = ({ navigation, route }) => {
     background-color: white;
     justify-content: center;
   `;
+
   return (
     <Background>
       <Text>{route.params}</Text>

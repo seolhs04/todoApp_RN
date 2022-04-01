@@ -1,42 +1,34 @@
 import { Button, Text } from "react-native";
 import styled from "styled-components";
-import { useQuery } from "react-query";
-import axios from "axios";
+import { useTest } from "../store/useTest";
 
 const Home = ({ navigation }) => {
-  const Background = styled.View`
-    flex: 1;
-    padding: 50px;
-    background-color: white;
-    justify-content: center;
-  `;
-  const { isLoading, isError, data, error } = useQuery("adsfsa", () => {
-    return axios
-      .get("https://api.github.com/repos/tannerlinsley/react-query")
-      .then((res) => res);
-  });
-
-  if (isLoading) {
-    return (
-      <Background>
-        <Text>loading...</Text>
-      </Background>
-    );
-  }
-
-  if (isError) {
-    return (
-      <Background>
-        <Text>{error}</Text>
-      </Background>
-    );
-  }
-
+  const { number } = useTest();
   return (
     <Background>
-      <Text>{data.archive_url}</Text>
+      <Text>홈 화면</Text>
+      <Text>전역 라이브러리 {number}</Text>
+      <Button
+        title="디테일 페이지 이동"
+        onPress={() => navigation.navigate("Detail", 2)}
+      />
+      <Button
+        title="애니메이션테스트 페이지 이동"
+        onPress={() => navigation.navigate("AnimationTest")}
+      />
+      <Button
+        title="Zustand 페이지 이동"
+        onPress={() => navigation.navigate("ZustandTest")}
+      />
     </Background>
   );
 };
 
 export default Home;
+
+const Background = styled.View`
+  flex: 1;
+  padding: 50px;
+  background-color: white;
+  justify-content: center;
+`;

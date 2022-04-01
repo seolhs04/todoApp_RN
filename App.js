@@ -6,10 +6,10 @@ import {
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import BottomTab from "./BottomTab";
 import Detail from "./screens/Detail";
 import Home from "./screens/Home";
-import Test from "./screens/Test";
+import AnimationTest from "./screens/AnimationTest";
+import ZustandTest from "./screens/ZustandTest";
 import { QueryClientProvider, QueryClient } from "react-query";
 
 const Stack = createBottomTabNavigator();
@@ -21,14 +21,14 @@ export default function App() {
     <>
       <QueryClientProvider client={client}>
         <NavigationContainer>
-          <Stack.Navigator tabBar={(props) => <BottomTab {...props} />}>
+          <Stack.Navigator
+            screenOptions={{ headerShown: false }}
+            tabBar={() => null}
+          >
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="Detail" component={Detail} />
-            <Stack.Screen
-              name="Test"
-              component={Test}
-              options={{ headerShown: false }}
-            />
+            <Stack.Screen name="AnimationTest" component={AnimationTest} />
+            <Stack.Screen name="ZustandTest" component={ZustandTest} />
           </Stack.Navigator>
         </NavigationContainer>
       </QueryClientProvider>
