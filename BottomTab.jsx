@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import { Button, Text } from "react-native";
-import { useEffect } from "react";
+import { Button } from "react-native";
 
-const BottomTab = ({ state, descriptors, navigation }) => {
+const BottomTab = ({ navigation }) => {
   const BottomTab = styled.View`
     flex-direction: row;
     justify-content: space-around;

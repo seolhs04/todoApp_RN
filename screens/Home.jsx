@@ -20,6 +20,10 @@ const Home = ({ navigation }) => {
         title="Zustand 페이지 이동"
         onPress={() => navigation.navigate("ZustandTest")}
       />
+      <Button
+        title="PlaceSearch 페이지 이동"
+        onPress={() => navigation.navigate("PlaceSearch")}
+      />
     </Background>
   );
 };

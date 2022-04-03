@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Text, View } from "react-native";
+import { Button, Text } from "react-native";
 import styled from "styled-components";
 import { useTest } from "../store/useTest";
 

@@ -1,12 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  Dimensions,
-  Animated,
-  View,
-} from "react-native";
+import { SafeAreaView, Text, Animated, View } from "react-native";
 
 const HEADER_HEIGHT = 100;
 
