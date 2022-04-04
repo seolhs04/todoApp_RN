@@ -10,7 +10,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "@react-native-async-storage/async-storage": "~1.15.0",
+    "@react-native-async-storage/async-storage": "github:react-native-community/async-storage",
     "@react-navigation/bottom-tabs": "^6.2.0",
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/native-stack": "^6.5.2",
@@ -27,7 +27,8 @@
     "react-native-webview": "^11.18.1",
     "react-query": "^3.34.19",
     "styled-components": "^5.3.3",
-    "zustand": "^3.7.1"
+    "zustand": "^3.7.1",
+    "zustand-persist": "^0.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
