@@ -7,6 +7,7 @@ import AnimationTest from "./screens/AnimationTest";
 import ZustandTest from "./screens/ZustandTest";
 import { QueryClientProvider, QueryClient } from "react-query";
 import PlaceSearch from "./screens/PlaceSearch";
+import FirebaseTest from "./screens/FirebaseTest";
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +23,7 @@ export default function App() {
             <Stack.Screen name="AnimationTest" component={AnimationTest} />
             <Stack.Screen name="ZustandTest" component={ZustandTest} />
             <Stack.Screen name="PlaceSearch" component={PlaceSearch} />
+            <Stack.Screen name="FirebaseTest" component={FirebaseTest} />
           </Stack.Navigator>
         </NavigationContainer>
       </QueryClientProvider>

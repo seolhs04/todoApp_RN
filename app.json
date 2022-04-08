@@ -13,20 +13,34 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.rn-expo-firebase-test",
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
+      "package": "com.rn_expo_firebase_test",
+      "googleServicesFile": "./google-services.json",
+      "useNextNotificationsApi": true,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "config": {
+        "firebase": {
+          "apiKey": "AIzaSyCQxIatltt-0eDilAJTjBBhejEFnSkFrTU",
+          "authDomain": "expo-firebase-test-8e53d.firebaseapp.com",
+          "projectId": "expo-firebase-test-8e53d",
+          "storageBucket": "expo-firebase-test-8e53d.appspot.com",
+          "messagingSenderId": "621684734407",
+          "appId": "1:621684734407:web:0f5129b5a55d6dc4e241e2",
+          "measurementId": "G-5PW94QM9ES"
+        }
+      }
     }
   }
 }

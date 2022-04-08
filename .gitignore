@@ -12,3 +12,7 @@ web-build/
 
 # macOS
 .DS_Store
+
+#사용자 정보, 파이어베이스
+google-services.json
+GoogleService-Info.plist

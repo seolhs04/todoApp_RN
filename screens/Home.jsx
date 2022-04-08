@@ -24,6 +24,10 @@ const Home = ({ navigation }) => {
         title="PlaceSearch 페이지 이동"
         onPress={() => navigation.navigate("PlaceSearch")}
       />
+      <Button
+        title="FirebaseTest 페이지 이동"
+        onPress={() => navigation.navigate("FirebaseTest")}
+      />
     </Background>
   );
 };
